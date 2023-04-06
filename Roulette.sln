@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roulette", "Roulette\Roulet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouletteTests", "RouletteTests\RouletteTests.csproj", "{B4A7B3DB-5885-46E0-BF09-F37ED043E4F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other Items", "Other Items", "{098D2152-35AD-483B-84F2-8E1312B3F62C}"
+	ProjectSection(SolutionItems) = preProject
+		SQLQuery1.sql = SQLQuery1.sql
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
