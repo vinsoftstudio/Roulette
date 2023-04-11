@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Roulette.Enums;
 using Roulette.Extensions;
@@ -30,6 +31,17 @@ namespace Roulette.Services
 		{
 			var enumValues = (PlaceType[])Enum.GetValues(typeof(PlaceType));
 			return enumValues.Select(x => x.GetDescription()).ToList();
+		}
+
+		public async Task<List<string>> GetPlaceTypeCombinations(string placeType)
+		{
+			var placeTypeId = (int)placeType.GetEnumValueFromDescription<PlaceType>();
+			var combinations = _context.PlaceTypeCombinations
+				.Where(ptc => ptc.PlaceTypeId == placeTypeId)
+				.Select(ptc => ptc.Combination)
+				.ToList();
+
+			return combinations;
 		}
 
 		public async Task<string> PlaceBet(Bet model)

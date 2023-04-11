@@ -31,6 +31,13 @@ namespace Roulette.Controllers
 			return Json(placeTypes);
 		}
 
+		[HttpGet("{placeType}/place-type-combinations", Name = "GetPlaceTypeCombinations")]
+		public async Task<ActionResult<List<string>>> GetPlaceTypeCombinations(string placeType)
+		{
+			var placeTypeCombinations = await _service.GetPlaceTypeCombinations(placeType);
+			return Json(placeTypeCombinations);
+		}
+
 		[HttpPost("place-bet", Name = "PlaceBet")]
 		public async Task<ActionResult<string>> PlaceBet([FromBody] Bet model)
 		{

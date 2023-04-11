@@ -7,6 +7,7 @@ namespace Roulette.Services
 		Task<List<string>> GetPlaceTypes();
 		Task<Player> GetPlayerById(string id);
 		Task<string> PlaceBet(Models.Bet model);
+		Task<List<string>> GetPlaceTypeCombinations(string placeType);
 		Task<string> Spin();
 		Task<string> PayOut(int spinId);
 		Task<List<Spin>> GetSpinHistory();

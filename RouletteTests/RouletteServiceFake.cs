@@ -6,6 +6,7 @@ namespace RouletteTests
 	public class RouletteServiceFake : IRouletteService
 	{
 		private readonly List<string> _placeTypes;
+		private readonly List<string> _placeTypeCombinations;
 		private readonly Player _player;
 		private readonly List<Bet> _bets;
 		private readonly List<Spin> _spins;
@@ -20,6 +21,22 @@ namespace RouletteTests
 				"Four Numbers",
 				"Twelve Numbers",
 				"Eighteen Numbers"
+			};
+
+			_placeTypeCombinations = new List<string>()
+			{
+				"1,2,3",
+				"4,5,6",
+				"7,8,9",
+				"10,11,12",
+				"13,14,15",
+				"16,17,18",
+				"19,20,21",
+				"22,23,24",
+				"25,26,27",
+				"28,29,30",
+				"31,32,33",
+				"34,35,36"
 			};
 
 			_spins = new List<Spin>()
@@ -77,6 +94,11 @@ namespace RouletteTests
 		public async Task<List<string>> GetPlaceTypes()
 		{
 			return _placeTypes;
+		}
+
+		public async Task<List<string>> GetPlaceTypeCombinations(string placeType)
+		{
+			return _placeTypeCombinations;
 		}
 
 		public async Task<string> PlaceBet(Bet model)
