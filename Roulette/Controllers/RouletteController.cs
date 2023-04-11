@@ -18,42 +18,42 @@ namespace Roulette.Controllers
 		}
 
 		[HttpPut("get-player/{id}", Name = "GetPlayer")]
-		public async Task<ActionResult> GetPlayer(int id)
+		public async Task<ActionResult<Player>> GetPlayer(string id)
 		{
 			var player = await _service.GetPlayerById(id);
 			return Json(player);
 		}
 
 		[HttpGet("place-types", Name = "GetPlaceTypes")]
-		public async Task<ActionResult> GetPlaceTypes()
+		public async Task<ActionResult<List<string>>> GetPlaceTypes()
 		{
 			var placeTypes = await _service.GetPlaceTypes();
 			return Json(placeTypes);
 		}
 
 		[HttpPost("place-bet", Name = "PlaceBet")]
-		public async Task<IActionResult> PlaceBet([FromBody] Bet model)
+		public async Task<ActionResult<string>> PlaceBet([FromBody] Bet model)
 		{
 			var response = await _service.PlaceBet(model);
 			return Json(response);
 		}
 
 		[HttpPost("spin", Name = "Spin")]
-		public async Task<IActionResult> Spin()
+		public async Task<ActionResult<string>> Spin()
 		{
 			var response = await _service.Spin();
 			return Json(response);
 		}
 
 		[HttpPut("payout/{id}", Name = "PayOut")]
-		public async Task<IActionResult> PayOut(int id)
+		public async Task<ActionResult<string>> PayOut(int id)
 		{
 			var response = await _service.PayOut(id);
 			return Json(response);
 		}
 
 		[HttpGet("get-spin-history", Name = "GetSpinHistory")]
-		public async Task<ActionResult> GetSpinHistory()
+		public async Task<ActionResult<List<Spin>>> GetSpinHistory()
 		{
 			var spins = await _service.GetSpinHistory();
 			return Json(spins);

@@ -1,28 +1,29 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Roulette.Entities;
 using Roulette.Enums;
 using Roulette.Extensions;
 using Roulette.Helpers;
-using System.Linq;
+using Roulette.Models;
 
 namespace Roulette.Services
 {
 	public class RouletteService : IRouletteService
 	{
-		private DataContext _context;
+		private readonly DataContext _context;
+		private readonly IMapper _mapper;
 
-		public RouletteService(DataContext context)
+		public RouletteService(DataContext context, IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 
-		public async Task<Player> GetPlayerById(int id)
+		public async Task<Player> GetPlayerById(string id)
 		{
 			var player = _context.Players.Find(id);
 			if (player == null) 
 				throw new KeyNotFoundException("Player not found");
-			return player;
+			return _mapper.Map<Player>(player);
 		}
 
 		public async Task<List<string>> GetPlaceTypes()
@@ -31,11 +32,11 @@ namespace Roulette.Services
 			return enumValues.Select(x => x.GetDescription()).ToList();
 		}
 
-		public async Task<string> PlaceBet(Models.Bet model)
+		public async Task<string> PlaceBet(Bet model)
 		{
 			try
 			{
-				var entity = new Bet
+				var entity = new Entities.Bet
 				{
 					PlayerId = model.PlayerId,
 					PlaceType = model.PlaceType,
@@ -67,8 +68,8 @@ namespace Roulette.Services
 				var betAmount = bets.Sum(b => b.BetAmount);
 				Random rnd = new Random();
 				result = rnd.Next(36);
-				result = 2;
-				var entity = new Spin
+
+				var entity = new Entities.Spin
 				{ 
 					Result = result,
 					BetAmount = betAmount
@@ -129,7 +130,8 @@ namespace Roulette.Services
 
 		public async Task<List<Spin>> GetSpinHistory()
 		{
-			return await _context.Spins.ToListAsync();
+			var spins = await _context.Spins.ToListAsync();
+			return _mapper.Map<List<Spin>>(spins);
 		}
 	}
 }

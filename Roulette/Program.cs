@@ -1,11 +1,12 @@
+using Roulette;
 using Roulette.Helpers;
 using Roulette.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddControllers();
 
 // configure DI for application services
